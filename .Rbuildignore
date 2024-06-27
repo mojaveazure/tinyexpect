@@ -1,0 +1,9 @@
+^tinyexpect\.Rproj$
+^\.Rproj\.user$
+^\.Rhistory$
+^LICENSE\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^README\.Rmd$
+^\.github$

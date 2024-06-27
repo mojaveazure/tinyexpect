@@ -1,0 +1,27 @@
+Package: tinyexpect
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: c(
+  person(
+    given = "Paul",
+    family = "Hoffman",
+    email = "hoff0792@alumni.umn.edu",
+    role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0002-7693-8957")
+  )
+  )
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+RoxygenNote: 7.3.1
+Depends:
+    R (>= 4.2),
+    tinytest (>= 1.4.1)
+Imports:
+    methods,
+    rlang (>= 1.1.3),
+    utils
+Suggests: 
+    Matrix,
+    testthat,
+    tools
