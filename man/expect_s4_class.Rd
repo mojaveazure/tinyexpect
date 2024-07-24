@@ -36,7 +36,7 @@ expect_s4_class(data.frame(), NA)
 
 }
 \seealso{
-\pkg{testthat} equivalent:
+\CRANpkg{testthat} equivalent:
 \code{\link[testthat:expect_s4_class]{testthat::expect_s4_class}()}
 
 Other inheritance: 

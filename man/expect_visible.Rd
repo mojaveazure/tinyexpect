@@ -32,7 +32,7 @@ expect_visible(g())
 
 }
 \seealso{
-\pkg{testthat} equivalent:
+\CRANpkg{testthat} equivalent:
 \code{\link[testthat:expect_visible]{testthat::expect_visible}()}
 
 \code{\link{withVisible}()}

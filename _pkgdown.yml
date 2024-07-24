@@ -1,0 +1,17 @@
+url: ~
+destination: docs
+template:
+  params:
+    bootswatch: flatly
+
+development:
+  mode: auto
+
+reference:
+  - title: Expectation Predicates
+    contents:
+      - starts_with("expect_")
+      - tinyexpect-package
+  - title: Skips/Stop Testing
+    contents:
+      - has_concept("skip")

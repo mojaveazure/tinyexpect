@@ -31,7 +31,7 @@ expect_type(1.0, "integer")
 
 }
 \seealso{
-\pkg{testthat} equivalent:
+\CRANpkg{testthat} equivalent:
 \code{\link[testthat:expect_type]{testthat::expect_type}()}
 
 Other inheritance: 

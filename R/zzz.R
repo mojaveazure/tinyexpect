@@ -31,6 +31,15 @@ NULL
   NULL
 }
 
+.missing_expect <- \() if (requireNamespace('testthat', quietly = TRUE)) {
+  setdiff(
+    .testthat_expect(),
+    union(.tinytest_expect(), getOption('tt.extensions')[[.pkg$pkgname]])
+  )
+} else {
+  NULL
+}
+
 .rd_equivalency_table <- function() {
   if (!requireNamespace('tools', quietly = TRUE)) {
     return(invisible(x = character()))
@@ -107,24 +116,38 @@ NULL
   return(paste("\\tabular{cc}{", paste0(tbl, collapse = '\n'), "}", sep = '\n'))
 }
 
+.is_var <- function(var) {
+  env <- Sys.getenv(x = var, unset = "false")
+  if (grepl(pattern = '^[[:digit:]]+$', x = env)) {
+    env <- as.numeric(x = env)
+  }
+  env <- as.logical(x = env)
+  if (isTRUE(x = getOption(x = 'tinyexpect.envvar.strict', default = FALSE))) {
+    return(isTRUE(x = env))
+  }
+  return(!isFALSE(x = env))
+}
+
 .onLoad <- function(libname, pkgname) {
   # Cache package name and path
   .pkg$pkgname <- pkgname
   .pkg$libname <- libname
   lockEnvironment(env = .pkg, bindings = TRUE)
+}
+
+.onAttach <- function(libname, pkgname) {
   # Register `expect_*` functions as tinytest extensions
   expects <- grep(
     pattern = '^expect_',
-    x = utils::lsf.str(envir = getNamespace(name = pkgname)),
+    x = getNamespaceExports(ns = getNamespace(name = pkgname)),
     value = TRUE
   )
-  if (length(x = expects)) {
-    # packageStartupMessage(
-    #   "Resigering ",
-    #   length(x = expects),
-    #   " expectation ",
-    #   ngettext(n = length(x = expects), msg1 = "function", "functions")
-    # )
+  if (n <- length(x = expects)) {
+    packageStartupMessage(sprintf(
+      fmt = "Registering %s expectation %s",
+      n,
+      ngettext(n = n, msg1 = 'predicate', msg2 = 'predicates')
+    ))
     tinytest::register_tinytest_extension(pkg = pkgname, functions = expects)
   }
 }

@@ -46,7 +46,7 @@ if (requireNamespace("Matrix", quietly = TRUE)) {
 
 }
 \seealso{
-\pkg{testthat} equivalent:
+\CRANpkg{testthat} equivalent:
 \code{\link[testthat:expect_s3_class]{testthat::expect_s3_class}()}
 
 Other inheritance: 

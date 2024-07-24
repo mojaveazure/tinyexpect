@@ -31,7 +31,7 @@ expect_invisible(g())
 
 }
 \seealso{
-\pkg{testthat} equivalent:
+\CRANpkg{testthat} equivalent:
 \code{\link[testthat:expect_invisible]{testthat::expect_invisible}()}
 
 \code{\link{withVisible}()}, \code{\link{invisible}()}
