@@ -15,11 +15,15 @@ exit_on_os(os, arch = NULL)
  \item \dQuote{\code{windows}}
  \item \dQuote{\code{mac}}
  \item \dQuote{\code{linux}}
- \item \dQuote{\code{sunos}}
  \item \dQuote{\code{solaris}}
 }
+The following OS designations are accepted as synonyms:
+\itemize{
+ \item \dQuote{\code{darwin}}: accepted in place of \dQuote{\code{mac}}
+ \item \dQuote{\code{sunos}}: accepted in place of \dQuote{\code{solaris}}
+}
 Pass \code{TRUE} to set \code{os} to all of the above; this is useful
-for limiting tests by architechture rather than OS/architecture combos}
+for limiting tests by architecture rather than OS/architecture combos}
 
 \item{arch}{Optional system architectures to not test on; note that this
 only applies to operating systems present in \code{os}}
@@ -66,10 +70,10 @@ identically to one another
 skip_on_os(system)
 
 # Nothing happens if on a different OS
-(other <- sample(setdiff(c("windows", "mac", "linux", "sunos", "solaris"), system), size = 1L))
+(other <- sample(setdiff(c("windows", "mac", "linux", "solaris"), system), size = 1L))
 skip_on_os(other)
 
-# System architechtures can be used to fine-tune skips
+# System architectures can be used to fine-tune skips
 (sysarch <- R.version$arch)
 skip_on_os(system, arch = sysarch)
 
@@ -78,8 +82,8 @@ skip_on_os(system, arch = sysarch)
 \CRANpkg{testthat} equivalent:
 \code{\link[testthat:skip_on_os]{testthat::skip_on_os}()}
 
-\code{\link[base]{Sys.info}()},
-\code{\link[base]{R.version}[["arch"]]}
+Tools for querying system OS and architecture:
+\code{\link[base]{Sys.info}()}, \code{\link[base]{R.version}[["arch"]]}
 
 Other “stop testing” functions:
 \code{\link{skip}()},

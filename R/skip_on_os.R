@@ -6,11 +6,15 @@
 #'  \item \dQuote{\code{windows}}
 #'  \item \dQuote{\code{mac}}
 #'  \item \dQuote{\code{linux}}
-#'  \item \dQuote{\code{sunos}}
 #'  \item \dQuote{\code{solaris}}
 #' }
+#' The following OS designations are accepted as synonyms:
+#' \itemize{
+#'  \item \dQuote{\code{darwin}}: accepted in place of \dQuote{\code{mac}}
+#'  \item \dQuote{\code{sunos}}: accepted in place of \dQuote{\code{solaris}}
+#' }
 #' Pass \code{TRUE} to set \code{os} to all of the above; this is useful
-#' for limiting tests by architechture rather than OS/architecture combos
+#' for limiting tests by architecture rather than OS/architecture combos
 #' @param arch Optional system architectures to not test on; note that this
 #' only applies to operating systems present in \code{os}
 #'
@@ -33,37 +37,49 @@
 #' @templateVar fxn skip_on_os
 #' @template link-testthat
 #'
-#' @seealso \code{\link[base]{Sys.info}()},
-#' \code{\link[base]{R.version}[["arch"]]}
+#' @seealso Tools for querying system OS and architecture:
+#' \code{\link[base]{Sys.info}()}, \code{\link[base]{R.version}[["arch"]]}
 #'
 #' @examples
 #' (system <- tolower(Sys.info()[["sysname"]]))
 #' skip_on_os(system)
 #'
 #' # Nothing happens if on a different OS
-#' (other <- sample(setdiff(c("windows", "mac", "linux", "sunos", "solaris"), system), size = 1L))
+#' (other <- sample(setdiff(c("windows", "mac", "linux", "solaris"), system), size = 1L))
 #' skip_on_os(other)
 #'
-#' # System architechtures can be used to fine-tune skips
+#' # System architectures can be used to fine-tune skips
 #' (sysarch <- R.version$arch)
 #' skip_on_os(system, arch = sysarch)
 #'
 skip_on_os <- function(os, arch = NULL) {
-  choices <- c('windows', 'mac', 'linux', 'sunos', 'solaris')
+  # Operating system synonyms
+  # - SunOS and Solaris
+  # - Darwin and macOS
+  os_synonyms <- \(x) switch(EXPR = x, darwin = 'mac', sunos = 'solaris', x)
+  choices <- c('windows', 'mac', 'linux', 'solaris')
   if (isTRUE(x = os)) {
     os <- choices
   }
-  os <- match.arg(arg = tolower(x = os), choices = choices, several.ok = TRUE)
+  os <- match.arg(
+    arg = tolower(x = os),
+    choices = c(choices, 'darwin', 'sunos'),
+    several.ok = TRUE
+  )
+  for (i in seq_along(along.with = os)) {
+    os[i] <- os_synonyms(x = os[i])
+  }
+  os <- unique(x = os)
   stopifnot(
     "'arch' must be a character vector" = is.null(x = arch) ||
       is.character(x = arch)
   )
   system <- tolower(x = Sys.info()[['sysname']])
+  system <- os_synonyms(x = system)
   msg <- if (system %in% os) {
     switch(
       EXPR = system,
-      sunos = ,
-      solaris = 'On Solaris',
+      mac = 'On macOS',
       paste0(
         "On ",
         toupper(x = substr(x = system, start = 1L, stop = 1L)),

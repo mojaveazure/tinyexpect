@@ -9,7 +9,7 @@ Version](https://www.r-pkg.org/badges/version/tinyexpect)](https://cran.r-projec
 badge](https://mojaveazure.r-universe.dev/badges/tinyexpect)](https://mojaveazure.r-universe.dev)
 <!-- badges: end -->
 
-# tinyexpect v0.0.0.9001
+# tinyexpect v0.0.0.9002
 
 ### What the Package Does (One Line, Title Case)
 
