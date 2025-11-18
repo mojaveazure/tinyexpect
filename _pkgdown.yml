@@ -1,0 +1,43 @@
+url: ~
+destination: docs
+template:
+  params:
+    bootswatch: flatly
+
+development:
+  mode: auto
+
+reference:
+  - title: Expectation Predicates
+
+  - subtitle: Condition Expectation Predicates
+    contents:
+      - has_concept("condition")
+
+  - subtitle: Type Expectation Predicates
+    contents:
+      - has_concept("inheritance")
+
+  - subtitle: In-Condition expectation Predicates
+    contents:
+      - has_concept("set")
+
+  - subtitle: Visibility Expectation Predicates
+    contents:
+      - has_concept("visibility")
+
+  - subtitle: Other Expectation Predicates
+    contents:
+      - starts_with("expect_")
+      - -has_concept("condition")
+      - -has_concept("inheritance")
+      - -has_concept("set")
+      - -has_concept("visibility")
+
+  - title: Skips/Stop Testing
+    contents:
+      - has_concept("skip")
+
+  - title: Package Information
+    contents:
+      - tinyexpect-package

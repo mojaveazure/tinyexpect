@@ -1,0 +1,78 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+```{r gh_url, include=FALSE}
+ghurl <- function(x) {
+  x <- trimws(x = unlist(x = strsplit(x = x, split = ",")))
+  x <- grep(pattern = "https://github.com", x = x, value = TRUE)[1]
+  return(unname(obj = x))
+}
+```
+
+```{r parse_desc, include=FALSE}
+description <- read.dcf(file = "DESCRIPTION")
+pkg <- as.vector(x = description[, "Package"])
+# github.url <- ghurl(x = description[, "URL"])
+github.url <- ""
+pkg.version <- package_version(x = description[1, "Version"])
+stage <- if (pkg.version >= package_version(x = "1.0.0")) {
+  "stable"
+} else if (pkg.version >= package_version(x = "0.1.0")) {
+  "maturing"
+} else {
+  "experimental"
+}
+color <- switch(
+  EXPR = stage,
+  "stable" = "green",
+  "maturing" = "blue",
+  "experimental" = "orange"
+)
+```
+
+<!-- badges: start -->
+[![Lifecycle](https://img.shields.io/badge/lifecycle-`r stage`-`r color`.svg)](`r github.url`)
+[![CRAN Version](https://www.r-pkg.org/badges/version/`r pkg`)](https://cran.r-project.org/package=`r pkg`)
+[![R-universe status badge](https://mojaveazure.r-universe.dev/badges/`r pkg`)](https://mojaveazure.r-universe.dev)
+[![R-CMD-check](https://github.com/mojaveazure/tinyexpect/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mojaveazure/tinyexpect/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+# `r pkg` v`r pkg.version`
+
+### `r description[1, "Title"]`
+
+---
+
+```{r description, echo=FALSE, results="asis"}
+cat(description[1, "Description"])
+```
+
+## Installation
+
+`r pkg` is available on R-universe, and can be installed with:
+
+```{r devel_install, echo=FALSE, results="asis"}
+cat(
+  "```r",
+  sprintf(
+    fmt = "install.packages(%s, repos = c(%s, getOption(%s)))",
+    dQuote(x = pkg, q = FALSE),
+    dQuote(x = "https://mojaveazure.r-universe.dev", q = FALSE),
+    dQuote(x = "repos", q = FALSE)
+  ),
+  "```",
+  sep = "\n"
+)
+```

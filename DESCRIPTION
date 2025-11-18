@@ -1,0 +1,36 @@
+Package: tinyexpect
+Title: Additional Expecation Predicates for the 'tinytest' Testing Framework
+Version: 0.0.0.9010
+Authors@R: c(
+    person(
+        given = "Paul",
+        family = "Hoffman",
+        email = "hoff0792@alumni.umn.edu",
+        role = c("aut", "cre"),
+        comment = c(ORCID = "0000-0002-7693-8957")
+    )
+    )
+Description: Ports of 'testthat' expectation predicates to the 'tinytest'
+    testing framework. These ports allow easier transitioning from 'testthat'
+    to 'tinytest' as well as provide more explicit expectation predicates for
+    'tinytest' users.
+License: MIT + file LICENSE
+URL:
+    https://mojaveazure.github.io/tinyexpect,
+    https://github.com/mojaveazure/tinyexpect
+BugReports:
+    https://github.com/mojaveazure/tinyexpect/issues
+Encoding: UTF-8
+RoxygenNote: 7.3.2
+Depends:
+    R (>= 3.5),
+    tinytest (>= 1.4.1)
+Imports:
+    rlang (>= 1.1.3),
+    utils
+Suggests:
+    Matrix,
+    methods,
+    withr
+Config/Needs/xrefs:
+    testthat
